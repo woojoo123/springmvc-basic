@@ -14,7 +14,7 @@ buildNumber.properties
 .idea/
 *.iws
 *.iml
-*.ipr
+*.iprgit
 out/
 
 # IDE - Eclipse
