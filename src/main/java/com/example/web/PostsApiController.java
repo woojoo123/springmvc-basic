@@ -1,5 +1,6 @@
 package com.example.web;
 
+import com.example.api.BadRequestException;
 import com.example.domain.Post;
 import com.example.repo.PostStore;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class PostsApiController {
         if (body == null ||
             body.title == null || body.title.trim().isEmpty() ||
             body.content == null || body.content.trim().isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            throw new BadRequestException("VALIDATION_ERROR", "title과 content는 필수입니다.");
         }
 
         Post created = PostStore.add(body.title.trim(), body.content.trim());
