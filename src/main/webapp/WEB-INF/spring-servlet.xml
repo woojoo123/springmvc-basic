@@ -20,4 +20,32 @@
     <property name="suffix" value=".jsp" />
   </bean>
 
+  <!-- (여기!) 인터셉터 등록은 beans 안에 넣는다 -->
+  <mvc:interceptors>
+
+    <!-- 로그인 필요: /posts 요청 보호 -->
+    <mvc:interceptor>
+      <mvc:mapping path="/posts/**"/>
+      <mvc:mapping path="/posts"/>
+      <mvc:exclude-mapping path="/login"/>
+      <mvc:exclude-mapping path="/logout"/>
+      <bean class="com.example.web.LoginCheckInterceptor"/>
+    </mvc:interceptor>
+
+    <!-- API(/api/**) 보호 -->
+    <mvc:interceptor>
+      <mvc:mapping path="/api/**"/>
+      <mvc:exclude-mapping path="/login"/>
+      <mvc:exclude-mapping path="/logout"/>
+      <bean class="com.example.web.LoginCheckInterceptor"/>
+    </mvc:interceptor>
+
+    <!-- (선택) /admin/** 은 ADMIN만 -->
+    <mvc:interceptor>
+      <mvc:mapping path="/admin/**"/>
+      <bean class="com.example.web.AdminCheckInterceptor"/>
+    </mvc:interceptor>
+
+  </mvc:interceptors>
+
 </beans>
